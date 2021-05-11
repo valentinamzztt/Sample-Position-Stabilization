@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 """
-Created on Fri May  7 14:12:45 2021
-
-@author: valen
+Created on Fri May  9 14:12:45 2021
+Taken from Python-Computer-Vision-Tutorials-Image-Fourier-Transform-part-4.1-Motion-Detection-/motion_detection_with_fourier_transform01.py
 """
 import cv2
 import numpy as np
