@@ -2,7 +2,6 @@
 """
 Created on Mon May 10 21:48:43 2021
 
-@author: valen
 """
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
