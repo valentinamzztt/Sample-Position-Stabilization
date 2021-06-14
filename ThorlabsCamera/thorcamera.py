@@ -1,3 +1,10 @@
+"""
+Python interface for the Thor scientific Cameras using .Net.
+
+For more information and to get started: https://matham.github.io/thorcam/index.html. 
+The Thorlabs custom service told me that the TSI Python SDK does not support the DCC model cameras
+"""
+
 from thorcam.camera import ThorCam
 class MyThorCam(ThorCam):
     def received_camera_response(self, msg, value):
