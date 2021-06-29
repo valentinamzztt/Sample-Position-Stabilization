@@ -357,13 +357,3 @@ with open('pixel_vs_displ.csv', 'w') as output:
     #writer = csv.writer(output, delimiter=' ', lineterminator='\r')
     for key, value in dict1.items():
         writer.writerow([key, value])
-
-
-
-match = imregpoc(image1_lp3, image11_lp3)
-match1 = imregpoc(image_1, image_11)
-
-x_offset = match.param[0]
-x_offset1 = match1.param[0]
-print(x_offset)
-print(x_offset1)
