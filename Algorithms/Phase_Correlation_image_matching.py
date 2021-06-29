@@ -282,68 +282,7 @@ class imregpoc:
 
     def getPerspective(self):
         return self.perspective
-
-
-class TempMatcher:
-
-    def __init__(self, temp, descriptor='ORB'):
-
-        # switch detector and matcher
-        self.detector = self.get_des(descriptor)
-        self.bf = self.get_matcher(descriptor)  # self matcher
-
-        if self.detector == 0:
-            print("Unknown Descriptor! \n")
-            sys.exit()
-
-        if len(temp.shape) > 2:  # if color then convert BGR to GRAY
-            temp = cv2.cvtColor(temp, cv2.COLOR_BGR2GRAY)
-
-        self.template = temp
-        # self.imsize = np.shape(self.template)
-        self.kp1, self.des1 = self.detector.detectAndCompute(self.template, None)
-        self.kpb, self.desb = self.kp1, self.des1
-        self.flag = 0  # homography estimated flag
-        self.scalebuf = []
-        self.scale = 0
-        self.H = np.eye(3, dtype=np.float32)
-        self.dH1 = np.eye(3, dtype=np.float32)
-        self.dH2 = np.eye(3, dtype=np.float32)
-        self.center = np.float32([temp.shape[1], temp.shape[0]]).reshape([1, 2]) / 2
-
-
-    '''
-    Do matching based on the descriptor choosed in the constructor.
-    Input 1. Compared Image
-    Input 2. showflag for matched image
-    '''
-
-    def getPerspective(self):
-        hei, wid = self.template.shape
-        cy, cx = hei / 2, wid / 2
-        Trans = np.float32([1, 0, cx, 0, 1, cy, 0, 0, 1]).reshape(3, 3)
-        iTrans = np.float32([1, 0, -cx, 0, 1, -cy, 0, 0, 1]).reshape(3, 3)
-        return np.dot(Trans, np.dot(self.H, iTrans))
-
-    def getpoc(self):
-        h, w = self.template.shape
-        # Affine = MoveCenterOfImage(self.H,[0,0],[w/2,h/2])
-        Affine = self.H
-
-        if Affine is None:
-            return [0, 0, 0, 1]
-
-        # Extraction
-        A2 = Affine * Affine
-        scale = math.sqrt(np.sum(A2[0:2, 0:2]) / 2.0)
-        theta = math.atan2(Affine[0, 1], Affine[0, 0])
-
-        theta = theta * 180.0 / math.pi
-
-        Trans = np.dot(np.linalg.inv(Affine[0:2, 0:2]), Affine[0:2, 2:3])
-        return [Trans[0], Trans[1], theta, scale]
-
-
+    
 
 if __name__ == "__main__":
     # Read image
